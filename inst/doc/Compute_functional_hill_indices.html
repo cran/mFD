@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Sebastien Villeger" />
+
+<meta name="date" content="2021-11-03" />
+
+<title>Compute Functional Diversity Hill Indices</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Compute Functional Diversity Hill Indices</h1>
+<h4 class="author">Sebastien Villeger</h4>
+<h4 class="date">2021-11-03</h4>
+
+
+
+<div id="about-this-tutorial" class="section level1">
+<h1>About this tutorial</h1>
+<div id="what-is-this-tutorial-about" class="section level2">
+<h2>What is this tutorial about?</h2>
+<p><br /></p>
+<p>This tutorial explains how to compute the family of indices presented in <a href="https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecm.1343">Chao <em>et al.</em> (2019)</a> using <code>mFD</code>.</p>
+<p><br /></p>
+</div>
+<div id="lets-load-data-and-compute-functional-distance" class="section level2">
+<h2>Let’s load data and compute functional distance</h2>
+<p><br /></p>
+<p>The data set used to illustrate this tutorial is the <strong>fruits dataset</strong> based on 25 types of fruits (<em>i.e.</em> species) distributed in 10 fruits baskets (<em>i.e.</em> assemblages). Each fruit is characterized by six traits values summarized in the following table:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Trait name</th>
+<th align="center">Trait measurement</th>
+<th align="center">Trait type</th>
+<th align="center">Number of classes</th>
+<th align="center">Classes code</th>
+<th align="center">Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Size</td>
+<td align="center">Maximal diameter</td>
+<td align="center">Ordinal</td>
+<td align="center">5</td>
+<td align="center">0-1 ; 1-3 ; 3-5 ; 5-10 ; 10-20</td>
+<td align="center">cm</td>
+</tr>
+<tr class="even">
+<td align="center">Plant</td>
+<td align="center">Growth form</td>
+<td align="center">Categorical</td>
+<td align="center">4</td>
+<td align="center">tree; shrub; vine; forb</td>
+<td align="center">NA</td>
+</tr>
+<tr class="odd">
+<td align="center">Climate</td>
+<td align="center">Climatic niche</td>
+<td align="center">Ordinal</td>
+<td align="center">3</td>
+<td align="center">temperate ; subtropical ; tropical</td>
+<td align="center">NA</td>
+</tr>
+<tr class="even">
+<td align="center">Seed</td>
+<td align="center">Seed type</td>
+<td align="center">Ordinal</td>
+<td align="center">3</td>
+<td align="center">none ; pip ; pit</td>
+<td align="center">NA</td>
+</tr>
+<tr class="odd">
+<td align="center">Sugar</td>
+<td align="center">Sugar</td>
+<td align="center">Continuous</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">g/kg</td>
+</tr>
+<tr class="even">
+<td align="center">Use</td>
+<td align="center">Use as food</td>
+<td align="center">Fuzzy</td>
+<td align="center">3</td>
+<td align="center">raw ; pastry ; jam</td>
+<td align="center">%</td>
+</tr>
+</tbody>
+</table>
+<p><br /></p>
+<p>We load the three objects used to compute functional framework (for more explanations, see <a href="https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html">mFD General Workflow</a>):</p>
+<p><br /></p>
+<ul>
+<li>a <strong>data frame</strong> summarizing traits values for each species called <code>fruits_traits</code> in this tutorial:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fruits_traits&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(fruits_traits),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Species x traits data frame based on the **fruits** dataset&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Species x traits data frame based on the <strong>fruits</strong> dataset</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Size</th>
+<th align="left">Plant</th>
+<th align="left">Climate</th>
+<th align="left">Seed</th>
+<th align="right">Sugar</th>
+<th align="right">Use.raw</th>
+<th align="right">Use.pastry</th>
+<th align="right">Use.jam</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">apple</td>
+<td align="left">5-10cm</td>
+<td align="left">tree</td>
+<td align="left">temperate</td>
+<td align="left">pip</td>
+<td align="right">103.9</td>
+<td align="right">50</td>
+<td align="right">50</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">apricot</td>
+<td align="left">3-5cm</td>
+<td align="left">tree</td>
+<td align="left">temperate</td>
+<td align="left">pit</td>
+<td align="right">92.4</td>
+<td align="right">40</td>
+<td align="right">10</td>
+<td align="right">50</td>
+</tr>
+<tr class="odd">
+<td align="left">banana</td>
+<td align="left">10-20cm</td>
+<td align="left">tree</td>
+<td align="left">tropical</td>
+<td align="left">none</td>
+<td align="right">122.3</td>
+<td align="right">70</td>
+<td align="right">20</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">currant</td>
+<td align="left">0-1cm</td>
+<td align="left">shrub</td>
+<td align="left">temperate</td>
+<td align="left">pip</td>
+<td align="right">73.7</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">80</td>
+</tr>
+<tr class="odd">
+<td align="left">blackberry</td>
+<td align="left">1-3cm</td>
+<td align="left">shrub</td>
+<td align="left">temperate</td>
+<td align="left">pip</td>
+<td align="right">48.8</td>
+<td align="right">30</td>
+<td align="right">10</td>
+<td align="right">60</td>
+</tr>
+<tr class="even">
+<td align="left">blueberry</td>
+<td align="left">0-1cm</td>
+<td align="left">forb</td>
+<td align="left">temperate</td>
+<td align="left">pip</td>
+<td align="right">100.0</td>
+<td align="right">10</td>
+<td align="right">40</td>
+<td align="right">50</td>
+</tr>
+</tbody>
+</table>
+<p><br /></p>
+<ul>
+<li>a <strong>matrix</strong> summarizing species assemblages called <code>baskets_fruits_weights</code> in this tutorial. Weights in this matrix can be occurrence data, abundance, biomass, coverage, etc. The studied example works with biomass (<em>i.e.</em> grams of a fruit in a basket) and this matrix looks as follows:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;baskets_fruits_weights&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">as.data.frame</span>(baskets_fruits_weights[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]), </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Species x assemblages matrix based on the **fruits** dataset&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Species x assemblages matrix based on the <strong>fruits</strong> dataset</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">apple</th>
+<th align="right">apricot</th>
+<th align="right">banana</th>
+<th align="right">currant</th>
+<th align="right">blackberry</th>
+<th align="right">blueberry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">basket_1</td>
+<td align="right">400</td>
+<td align="right">0</td>
+<td align="right">100</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">basket_2</td>
+<td align="right">200</td>
+<td align="right">0</td>
+<td align="right">400</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">basket_3</td>
+<td align="right">200</td>
+<td align="right">0</td>
+<td align="right">500</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">basket_4</td>
+<td align="right">300</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">basket_5</td>
+<td align="right">200</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">basket_6</td>
+<td align="right">100</td>
+<td align="right">0</td>
+<td align="right">200</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><br /></p>
+<ul>
+<li>a <strong>data frame</strong> summarizing traits types called <code>fruits_traits_cat</code> in this tutorial (for details, see <a href="https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html">mFD General Workflow</a>):</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fruits_traits_cat&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(fruits_traits_cat), </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Traits types based on **fruits &amp; baskets** dataset&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Traits types based on <strong>fruits &amp; baskets</strong> dataset</caption>
+<thead>
+<tr class="header">
+<th align="left">trait_name</th>
+<th align="left">trait_type</th>
+<th align="left">fuzzy_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Size</td>
+<td align="left">O</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Plant</td>
+<td align="left">N</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Climate</td>
+<td align="left">O</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Seed</td>
+<td align="left">O</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Sugar</td>
+<td align="left">Q</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Use.raw</td>
+<td align="left">F</td>
+<td align="left">Use</td>
+</tr>
+</tbody>
+</table>
+<p><br /></p>
+<p>Then, we can compute functional distance using the <code>mFD::funct.dist()</code> function as follows:</p>
+<p><strong>USAGE</strong></p>
+<pre><code>## [1] &quot;Running w.type=equal on groups=c(Size)&quot;
+## [1] &quot;Running w.type=equal on groups=c(Plant)&quot;
+## [1] &quot;Running w.type=equal on groups=c(Climate)&quot;
+## [1] &quot;Running w.type=equal on groups=c(Seed)&quot;
+## [1] &quot;Running w.type=equal on groups=c(Sugar)&quot;
+## [1] &quot;Running w.type=equal on groups=c(Use,Use,Use)&quot;</code></pre>
+<p><br /></p>
+</div>
+</div>
+<div id="generalisation-of-hill-numbers-for-alpha-functional-diversity" class="section level1">
+<h1>Generalisation of Hill numbers for alpha functional diversity</h1>
+<p><br /></p>
+<p>The family of indices presented in <a href="https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecm.1343">Chao <em>et al.</em> (2019)</a> allows computing FD based on pairwise distance between species and their weights in assemblages. This generalization of Hill numbers framework is based on two parameters:</p>
+<ul>
+<li><p><code>q</code>: the importance of species weight compared to species distance. Values allowed in <code>mFD</code> are 0, 1, 2 (the most often used, see below).</p></li>
+<li><p><code>tau</code>: the threshold of functional distinctiveness between any two species (<em>i.e.</em> all species with distance above this threshold are considered as functionally equally distinct). Values allowed in <code>mFD</code> are “min(imum)”, “mean(imum)” and “max(imum)”.</p></li>
+</ul>
+<p><br /></p>
+<p>Indices are expressed as effective number of functionally equally distinct species (or <em>virtual functional groups</em>) and could thus be directly compared to taxonomic Hill numbers (including species richness).</p>
+<p><br /></p>
+<p><strong>NOTE</strong> For more details about the properties of Hill numbers FD read <a href="https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecm.1343">Chao <em>et al.</em> (2019)</a> and especially its Figures 1 &amp; 2.</p>
+<p><br /></p>
+<p>All these indices can be computed with the function <code>mFD::alpha.fd.hill()</code>.</p>
+<p><br /></p>
+<p>Here we start by comparing the <strong>‘classical’ Rao’s quadratic entropy expressed in Hill numbers</strong> following <a href="https://www.sciencedirect.com/science/article/pii/S0040580909001117">Ricotta &amp; Szeidl (2009)</a> which is the special case with <code>q = 2</code> and <code>tau = &quot;max&quot;</code>.</p>
+<p><br /></p>
+<p><strong>USAGE</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>baskets_FD2max <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.hill</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_w =</span> baskets_fruits_weights, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_dist  =</span> fruits_gower, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tau      =</span> <span class="st">&quot;max&quot;</span>, </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">q        =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><br /></p>
+<p>Then, we can compute <strong>Hill numbers FD of order 2</strong> computed with <code>tau = &quot;mean&quot;</code> and <code>q = 2</code> as recommended in <a href="https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecm.1343">Chao <em>et al.</em> (2019)</a></p>
+<p><br /></p>
+<p><strong>USAGE</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>baskets_FD2mean <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.hill</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_w =</span> baskets_fruits_weights, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_dist  =</span> fruits_gower, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tau      =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">q        =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><br /></p>
+<p>We can now compare these two metrics:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">FD2max  =</span> baskets_FD2max<span class="sc">$</span><span class="st">&quot;asb_FD_Hill&quot;</span>[ , <span class="dv">1</span>], </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">FD2mean =</span> baskets_FD2mean<span class="sc">$</span><span class="st">&quot;asb_FD_Hill&quot;</span>[ , <span class="dv">1</span>]), <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##           FD2max FD2mean
+## basket_1    1.50    2.62
+## basket_2    1.83    3.97
+## basket_3    1.86    4.10
+## basket_4    1.27    1.72
+## basket_5    1.30    1.85
+## basket_6    1.74    3.73
+## basket_7    1.82    3.94
+## basket_8    1.40    2.16
+## basket_9    1.53    2.75
+## basket_10   1.53    3.01</code></pre>
+<p><br /></p>
+<p>We can see that FD computed with <code>tau = &quot;max&quot;</code> is less variable (ranging from 1.50 to only 1.86) than FD computed with <code>tau = &quot;min&quot;</code> (ranging from 1.72 to 4.10) illustrating its <strong>higher sensitivity to functional differences between species</strong>.</p>
+<p><br /></p>
+<p><strong>NB</strong> <strong>Note that even with</strong> <code>q = 0</code><strong>, weights of species are still accounted for by FD.</strong> Hence, if the goal is to compute a richness-like index (<em>i.e.</em> accounting only for distance between species present), function <code>mFD::alpha.fd.hill()</code> should be applied to <strong>species occurrence data</strong> (coded as 0/1, previously computed using sp.tr.summary) so that all species have the same weight). Species occurrence data can be retrieve through the <code>mFD::asb.sp.summary()</code> function:</p>
+<p><br /></p>
+<p><strong>USAGE</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve species occurrences data:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>baskets_summary    <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">asb.sp.summary</span>(baskets_fruits_weights)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>baskets_fruits_occ <span class="ot">&lt;-</span> baskets_summary<span class="sc">$</span><span class="st">&quot;asb_sp_occ&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(baskets_fruits_occ)</span></code></pre></div>
+<pre><code>##          apple apricot banana currant blackberry blueberry cherry grape
+## basket_1     1       0      1       0          0         0      1     0
+## basket_2     1       0      1       0          0         0      1     0
+## basket_3     1       0      1       0          0         0      1     0
+## basket_4     1       0      0       0          0         0      0     0
+## basket_5     1       0      0       0          0         0      0     0
+## basket_6     1       0      1       0          0         0      0     0
+##          grapefruit kiwifruit lemon lime litchi mango melon orange
+## basket_1          0         0     1    0      0     0     1      0
+## basket_2          0         0     1    0      0     0     1      0
+## basket_3          0         0     1    0      0     0     1      0
+## basket_4          0         1     1    0      0     0     0      1
+## basket_5          0         1     1    0      0     0     0      1
+## basket_6          0         0     0    1      1     1     0      1
+##          passion_fruit peach pear pineapple plum raspberry strawberry tangerine
+## basket_1             1     0    1         0    0         0          1         0
+## basket_2             1     0    1         0    0         0          1         0
+## basket_3             1     0    1         0    0         0          1         0
+## basket_4             0     1    1         0    1         0          0         1
+## basket_5             0     1    1         0    1         0          0         1
+## basket_6             0     0    0         1    0         0          0         0
+##          water_melon
+## basket_1           0
+## basket_2           0
+## basket_3           0
+## basket_4           0
+## basket_5           0
+## basket_6           1</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute alpha FD Hill with q = 0:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>baskets_FD0mean <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.hill</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_w =</span> baskets_fruits_occ, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_dist  =</span> fruits_gower, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tau      =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">q        =</span> <span class="dv">0</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(baskets_FD0mean<span class="sc">$</span><span class="st">&quot;asb_FD_Hill&quot;</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##           FD_q0
+## basket_1   4.73
+## basket_2   4.73
+## basket_3   4.73
+## basket_4   1.93
+## basket_5   1.93
+## basket_6   4.57
+## basket_7   4.57
+## basket_8   3.67
+## basket_9   3.67
+## basket_10  3.52</code></pre>
+<p><br /></p>
+<p>We can see that baskets with same composition of fruits species have same FD values (<em>e.g</em> <em>basket_1</em>, <em>basket_2</em> and <em>basket_3</em>)</p>
+<p><br /></p>
+</div>
+<div id="generalisation-of-hill-numbers-for-beta-functional-diversity" class="section level1">
+<h1>Generalisation of Hill numbers for beta functional diversity</h1>
+<p><br /></p>
+<p>Framework of <a href="https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecm.1343">Chao <em>et al.</em> (2019)</a> also allows computing beta-diversity, with 2 framework similar to Jaccard and Sorensen ones for taxonomic diversity. The <code>mFD:beta.fd.hill()</code> function computes these indices.</p>
+<p><br /></p>
+<p><strong>NB</strong> Note that <strong>total weight of assemblages is affecting computation of functional beta-diversity</strong>. Hence <strong>if it is does not reflect an ecological pattern</strong> (<em>e.g</em>. rather difference in sampling effort), it is recommended to <strong>apply</strong> <code>mFD::beta.fd.hill()</code> <strong>to relative weight of species in assemblages</strong>.</p>
+<p><br /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve total weight per basket:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>baskets_summary<span class="sc">$</span><span class="st">&quot;asb_tot_w&quot;</span></span></code></pre></div>
+<pre><code>##  basket_1  basket_2  basket_3  basket_4  basket_5  basket_6  basket_7  basket_8 
+##      2000      2000      2000      2000      2000      2000      2000      2000 
+##  basket_9 basket_10 
+##      2000      2000</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here baskets all contain 2000g of fruits, we illustrate how to compute...</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># relative weights using the output of asb.sp.summary:</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>baskets_fruits_relw <span class="ot">&lt;-</span> baskets_fruits_weights <span class="sc">/</span> baskets_summary<span class="sc">$</span><span class="st">&quot;asb_tot_w&quot;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(baskets_fruits_relw, <span class="dv">1</span>, sum)</span></code></pre></div>
+<pre><code>##  basket_1  basket_2  basket_3  basket_4  basket_5  basket_6  basket_7  basket_8 
+##         1         1         1         1         1         1         1         1 
+##  basket_9 basket_10 
+##         1         1</code></pre>
+<p><br /></p>
+<p>Now we can compute functional beta-diversity of order <code>q = 2</code> (with <code>tau = &quot;mean&quot;</code> for higher sensitivity) with Jaccard-type index:</p>
+<p><br /></p>
+<p><strong>USAGE</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute index:</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>baskets_betaq2 <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">beta.fd.hill</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_w  =</span> baskets_fruits_relw, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_dist   =</span> fruits_gower, </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">q         =</span> <span class="dv">2</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">tau       =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta_type =</span> <span class="st">&quot;Jaccard&quot;</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Then use the mFD::dist.to.df function to ease visualizing result</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">dist.to.df</span>(<span class="at">list_dist =</span> <span class="fu">list</span>(<span class="st">&quot;FDq2&quot;</span> <span class="ot">=</span> baskets_betaq2<span class="sc">$</span><span class="st">&quot;beta_fd_q&quot;</span><span class="sc">$</span><span class="st">&quot;q2&quot;</span>))</span></code></pre></div>
+<pre><code>##          x1        x2        FDq2
+## 1  basket_1  basket_2 0.058982325
+## 2  basket_1  basket_3 0.078716397
+## 3  basket_1  basket_4 0.029573623
+## 4  basket_1  basket_5 0.027059789
+## 5  basket_1  basket_6 0.484115290
+## 6  basket_1  basket_7 0.292594562
+## 7  basket_1  basket_8 0.290545545
+## 8  basket_1  basket_9 0.185475113
+## 9  basket_1 basket_10 0.011136995
+## 10 basket_2  basket_3 0.004420448
+## 11 basket_2  basket_4 0.161833512
+## 12 basket_2  basket_5 0.162571972
+## 13 basket_2  basket_6 0.260541701
+## 14 basket_2  basket_7 0.097053161
+## 15 basket_2  basket_8 0.294504888
+## 16 basket_2  basket_9 0.225897615
+## 17 basket_2 basket_10 0.058298760
+## 18 basket_3  basket_4 0.172877455
+## 19 basket_3  basket_5 0.178123024
+## 20 basket_3  basket_6 0.207102590
+## 21 basket_3  basket_7 0.081951839
+## 22 basket_3  basket_8 0.308336365
+## 23 basket_3  basket_9 0.241482168
+## 24 basket_3 basket_10 0.082649928
+## 25 basket_4  basket_5 0.001049851
+## 26 basket_4  basket_6 0.511165067
+## 27 basket_4  basket_7 0.421141181
+## 28 basket_4  basket_8 0.482330219
+## 29 basket_4  basket_9 0.342926459
+## 30 basket_4 basket_10 0.050817451
+## 31 basket_5  basket_6 0.532084800
+## 32 basket_5  basket_7 0.438841544
+## 33 basket_5  basket_8 0.496554512
+## 34 basket_5  basket_9 0.336894275
+## 35 basket_5 basket_10 0.044052657
+## 36 basket_6  basket_7 0.068382884
+## 37 basket_6  basket_8 0.759422492
+## 38 basket_6  basket_9 0.680332414
+## 39 basket_6 basket_10 0.453325136
+## 40 basket_7  basket_8 0.478528108
+## 41 basket_7  basket_9 0.431531941
+## 42 basket_7 basket_10 0.265928889
+## 43 basket_8  basket_9 0.020812705
+## 44 basket_8 basket_10 0.345652088
+## 45 basket_9 basket_10 0.219780509</code></pre>
+<p>We can see that <em>basket 1</em> is similar (beta &lt; 0.1) to <em>baskets 2,3,4,5,10</em> and that it is the most dissimilar to <em>basket 8 (beta &gt; 0.5)</em>. <em>Baskets 4 and 5</em> are highly dissimilar (beta &gt; 0.8) to <em>basket 8</em>.</p>
+<p><br /></p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p><br /></p>
+<ul>
+<li><p>Chao <em>et al.</em> (2019) An attribute diversity approach to functional diversity, functional beta diversity, and related (dis)similarity measures. <em>Ecological Monographs</em>, <strong>89</strong>, e01343.</p></li>
+<li><p>Ricotta &amp; Szeidl (2009) Diversity partitioning of Rao’s quadratic entropy. <em>Theoretical Population Biology</em>, <strong>76</strong>, 299-302.</p></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
