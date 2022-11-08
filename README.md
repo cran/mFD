@@ -1,5 +1,5 @@
 
-# mFD <img src="man/figures/hexasticker_mFD.png" height="120" align="right" alt = "hexasticker mFD"/>
+# mFD <img src="man/figures/hexasticker_mFD.png" align="right" style="float:right; height:120px;"/>
 
 <!-- badges: start -->
 
@@ -76,10 +76,11 @@ Workflow](https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html
 
 Please cite this package as:
 
-> Magneville C, Loiseau N, Albouy C, Casajus N, Claverie T, Escalas A,
-> Leprieur F, Maire E, Mouillot D & Villeger S (2021) mFD: an R package
-> to compute and illustrate the multiple facets of functional diversity.
-> *Submitted to Ecography*.
+*Magneville, C., Loiseau, N., Albouy, C., Casajus, N., Claverie, T.,
+Escalas, A., Leprieur, F., Maire, E., Mouillot, D., Villéger, S.*
+(2022). mFD: an R package to compute and illustrate the multiple facets
+of functional diversity. *Ecography*
+<https://onlinelibrary.wiley.com/doi/10.1111/ecog.05904>
 
 You can also run:
 

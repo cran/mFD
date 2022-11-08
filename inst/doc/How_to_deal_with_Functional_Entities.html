@@ -12,7 +12,7 @@
 
 <meta name="author" content="Camille Magneville" />
 
-<meta name="date" content="2021-12-16" />
+<meta name="date" content="2022-11-04" />
 
 <title>How to Deal With Functional Entities</title>
 
@@ -333,7 +333,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">How to Deal With Functional Entities</h1>
 <h4 class="author">Camille Magneville</h4>
-<h4 class="date">2021-12-16</h4>
+<h4 class="date">2022-11-04</h4>
 
 
 
@@ -573,6 +573,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>the data frame summarizing traits categories called <em>fruits_traits_cat</em> in this tutorial: (for details: <a href="https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html">mFD General Workflow</a>)</li>
 </ul>
 <p><br /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fruits_traits_cat&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># only keep traits 1 - 4:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>fruits_traits_cat <span class="ot">&lt;-</span> fruits_traits_cat[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, ]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(fruits_traits_cat), </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Traits types based on *fruits &amp; baskets* dataset&quot;</span>)</span></code></pre></div>
 <table>
 <caption>Traits types based on <em>fruits &amp; baskets</em> dataset</caption>
 <thead>
@@ -608,11 +615,11 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p><br /></p>
 <p>Using the <code>mFD::asb.sp.summary()</code> function, we can sum up the assemblages data and retrieve species occurrence data:</p>
 <p><br /></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize species assemblages: </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>asb_sp_fruits_summ <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">asb.sp.summary</span>(baskets_fruits_weights)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve species occurrences for the first 3 assemblages (fruits baskets):</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(asb_sp_fruits_summ<span class="sc">$</span>asb_sp_occ, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize species assemblages: </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>asb_sp_fruits_summ <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">asb.sp.summary</span>(baskets_fruits_weights)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve species occurrences for the first 3 assemblages (fruits baskets):</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(asb_sp_fruits_summ<span class="sc">$</span>asb_sp_occ, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##          apple apricot banana currant blackberry blueberry cherry grape
 ## basket_1     1       0      1       0          0         0      1     0
 ## basket_2     1       0      1       0          0         0      1     0
@@ -629,7 +636,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## basket_1           0
 ## basket_2           0
 ## basket_3           0</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>asb_sp_fruits_occ <span class="ot">&lt;-</span> asb_sp_fruits_summ<span class="sc">$</span><span class="st">&quot;asb_sp_occ&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>asb_sp_fruits_occ <span class="ot">&lt;-</span> asb_sp_fruits_summ<span class="sc">$</span><span class="st">&quot;asb_sp_occ&quot;</span></span></code></pre></div>
 <p><br /></p>
 </div>
 <div id="gather-species-into-fes" class="section level1">
@@ -638,11 +645,11 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p><code>mFD</code> allows you to gather species into FEs using the <code>mFD::sp.to.fe()</code> function. It uses the following arguments:</p>
 <p><br /></p>
 <p><strong>USAGE</strong></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">sp.to.fe</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_tr       =</span> fruits_traits, </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tr_cat      =</span> fruits_traits_cat, </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fe_nm_type  =</span> <span class="st">&quot;fe_rank&quot;</span>, </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">sp.to.fe</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_tr       =</span> fruits_traits, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tr_cat      =</span> fruits_traits_cat, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fe_nm_type  =</span> <span class="st">&quot;fe_rank&quot;</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <p><br /></p>
 <ul>
 <li><em>sp_tr</em> the data frame of species traits</li>
@@ -652,25 +659,25 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </ul>
 <p>Let’s use this function with the <em>fruits dataset</em>:</p>
 <p><br /></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sp_to_fe_fruits <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">sp.to.fe</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_tr       =</span> fruits_traits, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tr_cat      =</span> fruits_traits_cat, </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fe_nm_type  =</span> <span class="st">&quot;fe_rank&quot;</span>, </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sp_to_fe_fruits <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">sp.to.fe</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_tr       =</span> fruits_traits, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tr_cat      =</span> fruits_traits_cat, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fe_nm_type  =</span> <span class="st">&quot;fe_rank&quot;</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <p><br /></p>
 <p><code>mFD::sp.to.fe()</code> returns:</p>
 <ul>
 <li>a vector containing FEs names: <br /></li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;fe_nm&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;fe_nm&quot;</span></span></code></pre></div>
 <pre><code>##  [1] &quot;fe_1&quot;  &quot;fe_2&quot;  &quot;fe_3&quot;  &quot;fe_4&quot;  &quot;fe_5&quot;  &quot;fe_6&quot;  &quot;fe_7&quot;  &quot;fe_8&quot;  &quot;fe_9&quot; 
 ## [10] &quot;fe_10&quot; &quot;fe_11&quot; &quot;fe_12&quot; &quot;fe_13&quot; &quot;fe_14&quot;</code></pre>
 <p><br /></p>
 <ul>
 <li>a vector containing for each species, the FE it belongs to: <br /></li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sp_fe <span class="ot">&lt;-</span> sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;sp_fe&quot;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sp_fe</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sp_fe <span class="ot">&lt;-</span> sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;sp_fe&quot;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sp_fe</span></code></pre></div>
 <pre><code>##         apple       apricot        banana       currant    blackberry 
 ##        &quot;fe_3&quot;        &quot;fe_2&quot;        &quot;fe_7&quot;        &quot;fe_1&quot;        &quot;fe_1&quot; 
 ##     blueberry        cherry         grape    grapefruit     kiwifruit 
@@ -686,8 +693,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>a data frame containing for FEs, the values of traits for each FE:</li>
 </ul>
 <p><br /></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fe_tr <span class="ot">&lt;-</span> sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;fe_tr&quot;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fe_tr</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fe_tr <span class="ot">&lt;-</span> sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;fe_tr&quot;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fe_tr</span></code></pre></div>
 <pre><code>##         Size    Plant   Climate Seed
 ## fe_1   small Not_tree temperate  pip
 ## fe_2   small     tree temperate  pit
@@ -708,8 +715,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>a vector containing the number of species per FE:</li>
 </ul>
 <p><br /></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fe_nb_sp <span class="ot">&lt;-</span> sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;fe_nb_sp&quot;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fe_nb_sp</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fe_nb_sp <span class="ot">&lt;-</span> sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;fe_nb_sp&quot;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fe_nb_sp</span></code></pre></div>
 <pre><code>##  fe_1  fe_2  fe_3  fe_4  fe_5  fe_6  fe_7  fe_8  fe_9 fe_10 fe_11 fe_12 fe_13 
 ##     6     3     2     2     2     2     1     1     1     1     1     1     1 
 ## fe_14 
@@ -719,7 +726,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>a detailed list containing vectors or list with supplementary information about FEs:</li>
 </ul>
 <p><br /></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;details_fe&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sp_to_fe_fruits<span class="sc">$</span><span class="st">&quot;details_fe&quot;</span></span></code></pre></div>
 <pre><code>## $fe_codes
 ##                                                fe_1 
 ##  &quot;SIZEsmall_PLANTnot_tree_CLIMATEtemperate_SEEDpip&quot; 
@@ -777,7 +784,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p><br /></p>
 <p>Then based on the data frame containing the value of traits for each FE, the workflow is the same as the one listed in <a href="https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html">mFD General Workflow</a> to compute functional trait based distance, multidimensional functional space and associated plots and compute alpha and beta functional indices (step 3 till the end). It will thus not be summed up in this tutorial.</p>
 <p><br /></p>
-<p><code>mFD</code> also allows to compute functional indices based on FEs following the framework proposed in <a href="https://www.pnas.org/content/111/38/13757.short">Mouillot <em>et al.</em> 2014</a>) using the <code>mFD::alpha.fd.fe()</code> function. It computes:</p>
+<p><code>mFD</code> also allows to compute functional indices based on FEs following the framework proposed in <a href="https://www.pnas.org/doi/abs/10.1073/pnas.1317625111">Mouillot <em>et al.</em> 2014</a>) using the <code>mFD::alpha.fd.fe()</code> function. It computes:</p>
 <ul>
 <li><em>Functional Redundancy</em> that reflects the average number of species per FE</li>
 <li><em>Functional Overredundancy</em> that reflects the proportion of species in excess in species-rich FE <em>ie</em> it represents the percentage of species that fill functional entities above the mean level of functional redundancy</li>
@@ -787,12 +794,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p><code>mFD::alpha.fd.fe()</code> function is used as follows:</p>
 <p><br /></p>
 <p><strong>USAGE</strong></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">alpha.fd.fe</span>(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_occ       =</span> asb_sp_fruits_occ, </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_to_fe         =</span> sp_to_fe_fruits,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_nm           =</span> <span class="fu">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;fored&quot;</span>, <span class="st">&quot;fvuln&quot;</span>),</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input      =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">details_returned =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">alpha.fd.fe</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_occ       =</span> asb_sp_fruits_occ, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_to_fe         =</span> sp_to_fe_fruits,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_nm           =</span> <span class="fu">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;fored&quot;</span>, <span class="st">&quot;fvuln&quot;</span>),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input      =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">details_returned =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <p><br /></p>
 <p>It takes as inputs:</p>
 <ul>
@@ -805,17 +812,17 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p><br /></p>
 <p>Let’s apply this function with the <em>fruits</em> dataset:</p>
 <p><br /></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>alpha_fd_fe_fruits <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.fe</span>(</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_occ       =</span> asb_sp_fruits_occ, </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_to_fe         =</span> sp_to_fe_fruits,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_nm           =</span> <span class="fu">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;fored&quot;</span>, <span class="st">&quot;fvuln&quot;</span>),</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input      =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">details_returned =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>alpha_fd_fe_fruits <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.fe</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_occ       =</span> asb_sp_fruits_occ, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_to_fe         =</span> sp_to_fe_fruits,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_nm           =</span> <span class="fu">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;fored&quot;</span>, <span class="st">&quot;fvuln&quot;</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input      =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">details_returned =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <p><br /></p>
 <p>This function returns a dataframe of indices values for each assemblage and a detailed list containing a matrix gathering the number of species per FE in each assemblage:</p>
 <p><br /></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe with indices values for each assemblage:</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>alpha_fd_fe_fruits<span class="sc">$</span><span class="st">&quot;asb_fdfe&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe with indices values for each assemblage:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>alpha_fd_fe_fruits<span class="sc">$</span><span class="st">&quot;asb_fdfe&quot;</span></span></code></pre></div>
 <pre><code>##           nb_sp nb_fe     fred     fored     fvuln
 ## basket_1      8     7 1.142857 0.1071429 0.8571429
 ## basket_2      8     7 1.142857 0.1071429 0.8571429
@@ -827,8 +834,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## basket_8      8     3 2.666667 0.4166667 0.6666667
 ## basket_9      8     3 2.666667 0.4166667 0.6666667
 ## basket_10     8     5 1.600000 0.1500000 0.4000000</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a matrix gathering the number of species per FE in each assemblage</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>alpha_fd_fe_fruits<span class="sc">$</span><span class="st">&quot;details_fdfe&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a matrix gathering the number of species per FE in each assemblage</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>alpha_fd_fe_fruits<span class="sc">$</span><span class="st">&quot;details_fdfe&quot;</span></span></code></pre></div>
 <pre><code>## $asb_fe_nbsp
 ##           fe_3 fe_2 fe_7 fe_1 fe_8 fe_9 fe_4 fe_5 fe_10 fe_11 fe_6 fe_12 fe_13
 ## basket_1     2    1    1    1    0    0    1    0     0     0    1     1     0
@@ -860,32 +867,6 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>Then, it is possible to have a graphical representation of FE-based indices for a given assemblage using the <code>mFD::alpha.fe.fd.plot()</code> function:</p>
 <p><br /></p>
 <p><strong>USAGE</strong></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">alpha.fd.fe.plot</span>(</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha_fd_fe       =</span> alpha_fd_fe_fruits,</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot_asb_nm       =</span> <span class="fu">c</span>(<span class="st">&quot;basket_1&quot;</span>),</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot_ind_nm       =</span> <span class="fu">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;fored&quot;</span>, <span class="st">&quot;fvuln&quot;</span>),</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">name_file         =</span> <span class="cn">NULL</span>,</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_fill_fored  =</span> <span class="st">&quot;darkolivegreen2&quot;</span>,</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_line_fred   =</span> <span class="st">&quot;darkolivegreen4&quot;</span>,</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_fill_bar    =</span> <span class="st">&quot;grey80&quot;</span>,</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_fill_fvuln  =</span> <span class="st">&quot;lightcoral&quot;</span>,</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_arrow_fvuln =</span> <span class="st">&quot;indianred4&quot;</span>,</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">size_line_fred    =</span> <span class="fl">1.5</span>,</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">size_arrow_fvuln  =</span> <span class="dv">1</span>,</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input       =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><br /></p>
-<p>This function takes as inputs:</p>
-<ul>
-<li><em>alpha_fe_fe_fruits</em> the output from the function <code>mFD::alpha.fd.fe()</code> applied on assemblage of interest with <code>details_returned = TRUE</code></li>
-<li><em>plot_asb_nm</em> a vector containing the name of the assemblage to plot</li>
-<li><em>plot_ind_nm</em> a vector containing the names of the indices to plot. It <code>fred</code> to plot functional redundancy (FRed), <code>fored</code> to plot functional over-redundancy (FOred) and/or <code>fvuln</code> to plot functional vulnerability (FVuln)</li>
-<li><em>name_file</em> a character string with name of file to save the figure. If set to <code>NULL</code> the plot is only displayed</li>
-<li>inputs to personalize the plot (for details: see help file of the <code>mFD::alpha.fd.fe.plot</code>)</li>
-<li><em>check_input</em> is a logical value reflecting whether inputs should be checked or not. Possible error messages will thus be more understandable for the user than R error messages <strong>NOTE</strong> Recommendation: set it as <code>TRUE</code></li>
-</ul>
-<p><br /></p>
-<p>For the studied example, the plot looks as follows:</p>
-<p><br /></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">alpha.fd.fe.plot</span>(</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha_fd_fe       =</span> alpha_fd_fe_fruits,</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot_asb_nm       =</span> <span class="fu">c</span>(<span class="st">&quot;basket_1&quot;</span>),</span>
@@ -899,6 +880,32 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">size_line_fred    =</span> <span class="fl">1.5</span>,</span>
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">size_arrow_fvuln  =</span> <span class="dv">1</span>,</span>
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input       =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><br /></p>
+<p>This function takes as inputs:</p>
+<ul>
+<li><em>alpha_fe_fe_fruits</em> the output from the function <code>mFD::alpha.fd.fe()</code> applied on assemblage of interest with <code>details_returned = TRUE</code></li>
+<li><em>plot_asb_nm</em> a vector containing the name of the assemblage to plot</li>
+<li><em>plot_ind_nm</em> a vector containing the names of the indices to plot. It <code>fred</code> to plot functional redundancy (FRed), <code>fored</code> to plot functional over-redundancy (FOred) and/or <code>fvuln</code> to plot functional vulnerability (FVuln)</li>
+<li><em>name_file</em> a character string with name of file to save the figure. If set to <code>NULL</code> the plot is only displayed</li>
+<li>inputs to personalize the plot (for details: see help file of the <code>mFD::alpha.fd.fe.plot</code>)</li>
+<li><em>check_input</em> is a logical value reflecting whether inputs should be checked or not. Possible error messages will thus be more understandable for the user than R error messages <strong>NOTE</strong> Recommendation: set it as <code>TRUE</code></li>
+</ul>
+<p><br /></p>
+<p>For the studied example, the plot looks as follows:</p>
+<p><br /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">alpha.fd.fe.plot</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha_fd_fe       =</span> alpha_fd_fe_fruits,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot_asb_nm       =</span> <span class="fu">c</span>(<span class="st">&quot;basket_1&quot;</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot_ind_nm       =</span> <span class="fu">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;fored&quot;</span>, <span class="st">&quot;fvuln&quot;</span>),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">name_file         =</span> <span class="cn">NULL</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_fill_fored  =</span> <span class="st">&quot;darkolivegreen2&quot;</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_line_fred   =</span> <span class="st">&quot;darkolivegreen4&quot;</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_fill_bar    =</span> <span class="st">&quot;grey80&quot;</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_fill_fvuln  =</span> <span class="st">&quot;lightcoral&quot;</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">color_arrow_fvuln =</span> <span class="st">&quot;indianred4&quot;</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">size_line_fred    =</span> <span class="fl">1.5</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">size_arrow_fvuln  =</span> <span class="dv">1</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_input       =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGAHJBWFlAvqBbVK1IQBcgBaWUB9YJqUb0iBVGA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" style="display: block; margin: auto;" /></p>
 <p><br /></p>
 <p>All FE except “fe_3” contain only one species thus FRed and FVuln are close to 1. Only “fe_3” has more species than the average number of species thus the proportion of species in excess in FE richer than average is quite low (FRed = 0.107).</p>

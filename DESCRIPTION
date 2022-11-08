@@ -1,7 +1,7 @@
 Package: mFD
 Title: Compute and Illustrate the Multiple Facets of Functional
         Diversity
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(
     person(given   = "Camille",
            family  = "Magneville",
@@ -79,7 +79,7 @@ Suggests: dplyr (>= 1.0.6), knitr, magrittr, rmarkdown (>= 2.6),
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-12-16 09:34:13 UTC; camil
+Packaged: 2022-11-04 16:41:07 UTC; camil
 Author: Camille Magneville [aut, cre, cph]
     (<https://orcid.org/0000-0003-0489-3822>),
   Nicolas Loiseau [aut] (<https://orcid.org/0000-0002-2469-1980>),
@@ -93,4 +93,4 @@ Author: Camille Magneville [aut, cre, cph]
   Sebastien Villeger [aut] (<https://orcid.org/0000-0002-2362-7178>)
 Maintainer: Camille Magneville <camille.magneville@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-12-16 10:10:06 UTC
+Date/Publication: 2022-11-08 14:10:03 UTC

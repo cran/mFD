@@ -36,7 +36,7 @@ data("baskets_fruits_weights", package = "mFD")
 knitr::kable(as.data.frame(baskets_fruits_weights[1:6, 1:6]), 
              caption = "Species x assemblages dataframe based on *fruits* dataset")
 
-## ---- echo = FALSE------------------------------------------------------------
+## -----------------------------------------------------------------------------
 data("fruits_traits_cat", package = "mFD")
 
 # only keep traits 1 - 4:
