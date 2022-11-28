@@ -270,50 +270,35 @@ plots_alpha$"fori"$"patchwork"
 ## ---- fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
 plots_alpha$"fnnd"$"patchwork"
 
-## ---- results = "hide", message=FALSE-----------------------------------------
-beta_fd_indices_fruits <- mFD::beta.fd.multidim(
-      sp_faxes_coord   = sp_faxes_coord_fruits[ , c("PC1", "PC2", "PC3", "PC4")],
-      asb_sp_occ       = asb_sp_fruits_occ,
-      check_input      = TRUE,
-      beta_family      = c("Jaccard"),
-      details_returned = TRUE)
+## ---- results = "hide", message=FALSE, eval = FALSE---------------------------
+#  beta_fd_indices_fruits <- mFD::beta.fd.multidim(
+#        sp_faxes_coord   = sp_faxes_coord_fruits[ , c("PC1", "PC2", "PC3", "PC4")],
+#        asb_sp_occ       = asb_sp_fruits_occ,
+#        check_input      = TRUE,
+#        beta_family      = c("Jaccard"),
+#        details_returned = TRUE)
 
-## -----------------------------------------------------------------------------
-head(beta_fd_indices_fruits$"pairasb_fbd_indices", 10)
-
-## -----------------------------------------------------------------------------
-beta_fd_indices_fruits$"details"
-
-## -----------------------------------------------------------------------------
-beta_fd_indices_fruits$"details"$"asb_FRic"
-
-## -----------------------------------------------------------------------------
-beta_fd_indices_fruits$"details"$"asb_vertices"
-
-## ---- results = "hide", warning = FALSE---------------------------------------
-beta_plot_fruits <- mFD::beta.multidim.plot(
-  output_beta_fd_multidim = beta_fd_indices_fruits,
-  plot_asb_nm             = c("basket_1", "basket_4"),
-  beta_family             = c("Jaccard"),
-  plot_sp_nm              = c("apple", "lemon", "pear"),
-  faxes                   = paste0("PC", 1:4),
-  name_file               = NULL,
-  faxes_nm                = NULL,
-  range_faxes             = c(NA, NA),
-  color_bg                = "grey95",
-  shape_sp                = c("pool" = 3.0, asb1 = 22, asb2 = 21),
-  size_sp                 = c("pool" = 0.8, asb1 =  1, asb2 =  1),
-  color_sp                = c("pool" = "grey50", asb1 = "blue", asb2 = "red"),
-  fill_sp                 = c("pool" = NA, asb1 = "white", asb2 = "white"),
-  fill_vert               = c("pool" = NA, asb1 = "blue", asb2 = "red"),
-  color_ch                = c("pool" = NA, asb1 = "blue", asb2 = "red"),
-  fill_ch                 = c("pool" = "white", asb1 = "blue", asb2 = "red"),
-  alpha_ch                = c("pool" = 1, asb1 = 0.3, asb2 = 0.3),
-  nm_size                 = 3,
-  nm_color                = "black",
-  nm_fontface             = "plain",
-  check_input             = TRUE)
-
-## ---- fig.height = 16, fig.width = 16, fig.align = "center", warning = FALSE----
-beta_plot_fruits$"patchwork"
+## ---- results = "hide", warning = FALSE, eval = FALSE-------------------------
+#  beta_plot_fruits <- mFD::beta.multidim.plot(
+#    output_beta_fd_multidim = beta_fd_indices_fruits,
+#    plot_asb_nm             = c("basket_1", "basket_4"),
+#    beta_family             = c("Jaccard"),
+#    plot_sp_nm              = c("apple", "lemon", "pear"),
+#    faxes                   = paste0("PC", 1:4),
+#    name_file               = NULL,
+#    faxes_nm                = NULL,
+#    range_faxes             = c(NA, NA),
+#    color_bg                = "grey95",
+#    shape_sp                = c("pool" = 3.0, asb1 = 22, asb2 = 21),
+#    size_sp                 = c("pool" = 0.8, asb1 =  1, asb2 =  1),
+#    color_sp                = c("pool" = "grey50", asb1 = "blue", asb2 = "red"),
+#    fill_sp                 = c("pool" = NA, asb1 = "white", asb2 = "white"),
+#    fill_vert               = c("pool" = NA, asb1 = "blue", asb2 = "red"),
+#    color_ch                = c("pool" = NA, asb1 = "blue", asb2 = "red"),
+#    fill_ch                 = c("pool" = "white", asb1 = "blue", asb2 = "red"),
+#    alpha_ch                = c("pool" = 1, asb1 = 0.3, asb2 = 0.3),
+#    nm_size                 = 3,
+#    nm_color                = "black",
+#    nm_fontface             = "plain",
+#    check_input             = TRUE)
 
