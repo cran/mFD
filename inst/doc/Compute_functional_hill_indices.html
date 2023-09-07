@@ -12,7 +12,7 @@
 
 <meta name="author" content="Sebastien Villeger" />
 
-<meta name="date" content="2023-05-17" />
+<meta name="date" content="2023-09-07" />
 
 <title>Compute Functional Diversity Hill Indices</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Compute Functional Diversity Hill
 Indices</h1>
 <h4 class="author">Sebastien Villeger</h4>
-<h4 class="date">2023-05-17</h4>
+<h4 class="date">2023-09-07</h4>
 
 
 
@@ -442,10 +442,10 @@ General Workflow</a>):</p>
 <li>a <strong>data frame</strong> summarizing traits values for each
 species called <code>fruits_traits</code> in this tutorial:</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fruits_traits&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(fruits_traits),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Species x traits data frame based on the **fruits** dataset&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fruits_traits&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(fruits_traits),</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Species x traits data frame based on the **fruits** dataset&quot;</span>)</span></code></pre></div>
 <table>
 <caption>Species x traits data frame based on the
 <strong>fruits</strong> dataset</caption>
@@ -550,10 +550,10 @@ matrix can be occurrence data, abundance, biomass, coverage, etc. The
 studied example works with biomass (<em>i.e.</em> grams of a fruit in a
 basket) and this matrix looks as follows:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;baskets_fruits_weights&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">as.data.frame</span>(baskets_fruits_weights[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]), </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Species x assemblages matrix based on the **fruits** dataset&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;baskets_fruits_weights&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">as.data.frame</span>(baskets_fruits_weights[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]), </span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Species x assemblages matrix based on the **fruits** dataset&quot;</span>)</span></code></pre></div>
 <table>
 <caption>Species x assemblages matrix based on the
 <strong>fruits</strong> dataset</caption>
@@ -631,9 +631,9 @@ basket) and this matrix looks as follows:</li>
 <code>fruits_traits_cat</code> in this tutorial (for details, see <a href="https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html">mFD
 General Workflow</a>):</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fruits_traits_cat&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(fruits_traits_cat), </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Traits types based on **fruits &amp; baskets** dataset&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fruits_traits_cat&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mFD&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(fruits_traits_cat), </span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Traits types based on **fruits &amp; baskets** dataset&quot;</span>)</span></code></pre></div>
 <table>
 <caption>Traits types based on <strong>fruits &amp; baskets</strong>
 dataset</caption>
@@ -726,11 +726,11 @@ entropy expressed in Hill numbers</strong> following <a href="https://www.scienc
 <code>q = 2</code> and <code>tau = &quot;max&quot;</code>.</p>
 <p><br /></p>
 <p><strong>USAGE</strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>baskets_FD2max <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.hill</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_w =</span> baskets_fruits_weights, </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_dist  =</span> fruits_gower, </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tau      =</span> <span class="st">&quot;max&quot;</span>, </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">q        =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>baskets_FD2max <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.hill</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="at">asb_sp_w =</span> baskets_fruits_weights, </span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">sp_dist  =</span> fruits_gower, </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">tau      =</span> <span class="st">&quot;max&quot;</span>, </span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">q        =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><br /></p>
 <p>Then, we can compute <strong>Hill numbers FD of order 2</strong>
 computed with <code>tau = &quot;mean&quot;</code> and <code>q = 2</code> as
@@ -738,15 +738,15 @@ recommended in <a href="https://esajournals.onlinelibrary.wiley.com/doi/full/10.
 <em>et al.</em> (2019)</a></p>
 <p><br /></p>
 <p><strong>USAGE</strong></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>baskets_FD2mean <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.hill</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_w =</span> baskets_fruits_weights, </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_dist  =</span> fruits_gower, </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tau      =</span> <span class="st">&quot;mean&quot;</span>, </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">q        =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>baskets_FD2mean <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.hill</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">asb_sp_w =</span> baskets_fruits_weights, </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">sp_dist  =</span> fruits_gower, </span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">tau      =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="at">q        =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><br /></p>
 <p>We can now compare these two metrics:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">FD2max  =</span> baskets_FD2max<span class="sc">$</span><span class="st">&quot;asb_FD_Hill&quot;</span>[ , <span class="dv">1</span>], </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">FD2mean =</span> baskets_FD2mean<span class="sc">$</span><span class="st">&quot;asb_FD_Hill&quot;</span>[ , <span class="dv">1</span>]), <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">FD2max  =</span> baskets_FD2max<span class="sc">$</span><span class="st">&quot;asb_FD_Hill&quot;</span>[ , <span class="dv">1</span>], </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>            <span class="at">FD2mean =</span> baskets_FD2mean<span class="sc">$</span><span class="st">&quot;asb_FD_Hill&quot;</span>[ , <span class="dv">1</span>]), <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##           FD2max FD2mean
 ## basket_1    1.50    2.62
 ## basket_2    1.83    3.97
@@ -776,11 +776,11 @@ Species occurrence data can be retrieve through the
 <code>mFD::asb.sp.summary()</code> function:</p>
 <p><br /></p>
 <p><strong>USAGE</strong></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve species occurrences data:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>baskets_summary    <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">asb.sp.summary</span>(baskets_fruits_weights)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>baskets_fruits_occ <span class="ot">&lt;-</span> baskets_summary<span class="sc">$</span><span class="st">&quot;asb_sp_occ&quot;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(baskets_fruits_occ)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Retrieve species occurrences data:</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>baskets_summary    <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">asb.sp.summary</span>(baskets_fruits_weights)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>baskets_fruits_occ <span class="ot">&lt;-</span> baskets_summary<span class="sc">$</span><span class="st">&quot;asb_sp_occ&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">head</span>(baskets_fruits_occ)</span></code></pre></div>
 <pre><code>##          apple apricot banana currant blackberry blueberry cherry grape
 ## basket_1     1       0      1       0          0         0      1     0
 ## basket_2     1       0      1       0          0         0      1     0
@@ -809,14 +809,14 @@ Species occurrence data can be retrieve through the
 ## basket_4           0
 ## basket_5           0
 ## basket_6           1</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute alpha FD Hill with q = 0:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>baskets_FD0mean <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.hill</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_w =</span> baskets_fruits_occ, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_dist  =</span> fruits_gower, </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tau      =</span> <span class="st">&quot;mean&quot;</span>, </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">q        =</span> <span class="dv">0</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(baskets_FD0mean<span class="sc">$</span><span class="st">&quot;asb_FD_Hill&quot;</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Compute alpha FD Hill with q = 0:</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>baskets_FD0mean <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">alpha.fd.hill</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="at">asb_sp_w =</span> baskets_fruits_occ, </span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="at">sp_dist  =</span> fruits_gower, </span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="at">tau      =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="at">q        =</span> <span class="dv">0</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="fu">round</span>(baskets_FD0mean<span class="sc">$</span><span class="st">&quot;asb_FD_Hill&quot;</span>, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##           FD_q0
 ## basket_1   4.73
 ## basket_2   4.73
@@ -849,17 +849,17 @@ affecting computation of functional beta-diversity</strong>. Hence
 to <strong>apply</strong> <code>mFD::beta.fd.hill()</code> <strong>to
 relative weight of species in assemblages</strong>.</p>
 <p><br /></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve total weight per basket:</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>baskets_summary<span class="sc">$</span><span class="st">&quot;asb_tot_w&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># retrieve total weight per basket:</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>baskets_summary<span class="sc">$</span><span class="st">&quot;asb_tot_w&quot;</span></span></code></pre></div>
 <pre><code>##  basket_1  basket_2  basket_3  basket_4  basket_5  basket_6  basket_7  basket_8 
 ##      2000      2000      2000      2000      2000      2000      2000      2000 
 ##  basket_9 basket_10 
 ##      2000      2000</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here baskets all contain 2000g of fruits, we illustrate how to compute...</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># relative weights using the output of asb.sp.summary:</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>baskets_fruits_relw <span class="ot">&lt;-</span> baskets_fruits_weights <span class="sc">/</span> baskets_summary<span class="sc">$</span><span class="st">&quot;asb_tot_w&quot;</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(baskets_fruits_relw, <span class="dv">1</span>, sum)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Here baskets all contain 2000g of fruits, we illustrate how to compute...</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co"># relative weights using the output of asb.sp.summary:</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>baskets_fruits_relw <span class="ot">&lt;-</span> baskets_fruits_weights <span class="sc">/</span> baskets_summary<span class="sc">$</span><span class="st">&quot;asb_tot_w&quot;</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="fu">apply</span>(baskets_fruits_relw, <span class="dv">1</span>, sum)</span></code></pre></div>
 <pre><code>##  basket_1  basket_2  basket_3  basket_4  basket_5  basket_6  basket_7  basket_8 
 ##         1         1         1         1         1         1         1         1 
 ##  basket_9 basket_10 
@@ -870,16 +870,16 @@ relative weight of species in assemblages</strong>.</p>
 sensitivity) with Jaccard-type index:</p>
 <p><br /></p>
 <p><strong>USAGE</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute index:</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>baskets_betaq2 <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">beta.fd.hill</span>(</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">asb_sp_w  =</span> baskets_fruits_relw, </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sp_dist   =</span> fruits_gower, </span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">q         =</span> <span class="dv">2</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">tau       =</span> <span class="st">&quot;mean&quot;</span>, </span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta_type =</span> <span class="st">&quot;Jaccard&quot;</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Then use the mFD::dist.to.df function to ease visualizing result</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">dist.to.df</span>(<span class="at">list_dist =</span> <span class="fu">list</span>(<span class="st">&quot;FDq2&quot;</span> <span class="ot">=</span> baskets_betaq2<span class="sc">$</span><span class="st">&quot;beta_fd_q&quot;</span><span class="sc">$</span><span class="st">&quot;q2&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Compute index:</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>baskets_betaq2 <span class="ot">&lt;-</span> mFD<span class="sc">::</span><span class="fu">beta.fd.hill</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="at">asb_sp_w  =</span> baskets_fruits_relw, </span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">sp_dist   =</span> fruits_gower, </span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="at">q         =</span> <span class="dv">2</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  <span class="at">tau       =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>  <span class="at">beta_type =</span> <span class="st">&quot;Jaccard&quot;</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co"># Then use the mFD::dist.to.df function to ease visualizing result</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a>mFD<span class="sc">::</span><span class="fu">dist.to.df</span>(<span class="at">list_dist =</span> <span class="fu">list</span>(<span class="st">&quot;FDq2&quot;</span> <span class="ot">=</span> baskets_betaq2<span class="sc">$</span><span class="st">&quot;beta_fd_q&quot;</span><span class="sc">$</span><span class="st">&quot;q2&quot;</span>))</span></code></pre></div>
 <pre><code>##          x1        x2        FDq2
 ## 1  basket_1  basket_2 0.058982325
 ## 2  basket_1  basket_3 0.078716397
