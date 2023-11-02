@@ -8,7 +8,7 @@ fruits_traits <- fruits_traits[1:5]
 knitr::kable(head(fruits_traits), 
              caption = "Species x traits dataframe based on *fruits* dataset")
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 summary(fruits_traits)
 
 ## -----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ round(as.matrix(dist_fruits)[ex_blackberry, ex_blackberry], 2)
 ## -----------------------------------------------------------------------------
 fruits_traits[ex_blackberry, ]
 
-## ---- warning = FALSE---------------------------------------------------------
+## ----warning = FALSE----------------------------------------------------------
 # use quality.fpscaes function to compute quality metrics:
 quality_fspaces_fruits <- mFD::quality.fspaces(
   sp_dist             = dist_fruits,
@@ -55,7 +55,7 @@ quality_fspaces_fruits$"quality_fspaces"
 # retrieve the functional space associated with minimal quality metric: 
 apply(quality_fspaces_fruits$quality_fspaces, 2, which.min)
 
-## ---- fig.height = 7, fig.width = 12, fig.align = "center", warning = FALSE----
+## ----fig.height = 7, fig.width = 12, fig.align = "center", warning = FALSE----
 library("magrittr")
 
 quality_fspaces_fruits$"quality_fspaces" %>%
@@ -65,7 +65,7 @@ quality_fspaces_fruits$"quality_fspaces" %>%
                                color = quality_metric, shape = quality_metric)) +
   ggplot2::geom_point() 
 
-## ---- fig.height = 7, fig.width = 12, fig.align = "center", warning = FALSE----
+## ----fig.height = 7, fig.width = 12, fig.align = "center", warning = FALSE----
 mFD::quality.fspaces.plot(
   fspaces_quality = quality_fspaces_fruits, 
   quality_metric  = "mad",
@@ -75,14 +75,14 @@ mFD::quality.fspaces.plot(
 # get fruits traits:
 fruits_traits[c("cherry", "lime", "lemon"), ]
 
-## ---- warning = FALSE---------------------------------------------------------
+## ----warning = FALSE----------------------------------------------------------
 quality_fspaces_fruits$"details_fspaces"$"pairsp_fspaces_dist" %>%
   dplyr::filter(sp.x %in% c("cherry", "lime", "lemon") & 
                 sp.y %in% c("cherry", "lime", "lemon")) %>%
   dplyr::select(sp.x, sp.y, tr, pcoa_4d, tree_average) %>%
   dplyr::mutate(dplyr::across(where(is.numeric), round, 2))
 
-## ---- warning = FALSE, fig.height = 7, fig.width = 12, fig.align = "center"----
+## ----warning = FALSE, fig.height = 7, fig.width = 12, fig.align = "center"----
 quality_fspaces_fruits$"details_fspaces"$"pairsp_fspaces_dist" %>%
   dplyr::filter(sp.x %in% c("pineapple") | sp.y %in% c("pineapple")) %>%
   dplyr::mutate(fruit = stringr::str_replace_all(string = paste0(sp.x, "", sp.y),
@@ -95,7 +95,7 @@ quality_fspaces_fruits$"details_fspaces"$"pairsp_fspaces_dist" %>%
   ggplot2::scale_x_continuous(limits = c(0, 1)) +
   ggplot2::scale_y_continuous(limits = c(0, 1))
 
-## ---- warning = FALSE, fig.height = 7, fig.width = 12, fig.align = "center"----
+## ----warning = FALSE, fig.height = 7, fig.width = 12, fig.align = "center"----
 quality_fspaces_fruits$"details_fspaces"$"dendro" %>%
   as.dendrogram() %>%
   dendextend::plot_horiz.dendrogram(side = TRUE)
@@ -131,7 +131,7 @@ quality_fspaces_fruits_sqrtgower$"details_trdist"$"trdist_euclidean"
 # get mean Absolute Deviation:
 quality_fspaces_fruits_sqrtgower$"quality_fspaces"
 
-## ---- fig.height = 7, fig.width = 12, fig.align = "center"--------------------
+## ----fig.height = 7, fig.width = 12, fig.align = "center"---------------------
 quality_fspaces_fruits$"details_fspaces"$"pairsp_fspaces_dist" %>%
   dplyr::select(sp.x, sp.y, Gower_distance = tr) %>%
   dplyr::mutate(Eucli_dist_24D_sqrt = quality_fspaces_fruits_sqrtgower$"details_fspaces"$"pairsp_fspaces_dist"$"pcoa_24d") %>%
@@ -141,7 +141,7 @@ quality_fspaces_fruits$"details_fspaces"$"pairsp_fspaces_dist" %>%
   ggplot2::scale_x_continuous(limits = c(0, 1)) +
   ggplot2::scale_y_continuous(limits = c(0, 1))
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 mean(abs(quality_fspaces_fruits$"details_fspaces"$"pairsp_fspaces_dist"$"tr" -
  quality_fspaces_fruits_sqrtgower$"details_fspaces"$"pairsp_fspaces_dist"$"pcoa_24d"))
 
@@ -159,7 +159,7 @@ sp_tr
 dist_gower <- cluster::daisy(sp_tr, metric = "gower")
 round(dist_gower, 2)
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 # square-root transformation of Gower distance
 gower_sqrt <- sqrt(dist_gower)
 round(gower_sqrt, 2)

@@ -1,3 +1,8 @@
+# mFD 1.0.6
+* Fix bug:
+  * Correct the sp.plot() fct when plotting one asb (pb with vertices aes)
+  * Correct the sp.plot() fct when several sp same place but only one as vert
+
 # mFD 1.0.5
 * Fix bug:
   * Correct funct.dist() function error when only quantitative traits (ISSUE 34)

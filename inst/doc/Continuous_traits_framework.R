@@ -1,4 +1,4 @@
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 # load dataset:
 sp_tr <- read.csv(system.file("extdata", "data_cestes_sp_tr.csv", 
                               package = "mFD"), dec = ",", sep = ":")
@@ -10,7 +10,7 @@ sp_tr <- sp_tr[ , -1]
 knitr::kable(head(sp_tr), 
              caption = "Species x Traits data frame based on *CESTES* dataset")
 
-## ---- warning = FALSE---------------------------------------------------------
+## ----warning = FALSE----------------------------------------------------------
 # load dataset:
 asb_sp_w <- read.csv(system.file("extdata", "data_cestes_asb_sp_w.csv", 
                                  package = "mFD"), dec = ",", sep = ":")
@@ -28,7 +28,7 @@ asb_sp_w <- asb_sp_w[-c(11, 22, 33), ]
 knitr::kable(asb_sp_w[1:7, 1:6], 
              caption = "Species x Assemblages data frame based on *CESTES* dataset for the first six species and first seven sites")
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 mFD::tr.cont.fspace(
   sp_tr        = sp_tr, 
   pca          = TRUE, 
@@ -36,7 +36,7 @@ mFD::tr.cont.fspace(
   scaling      = "scale_center",
   compute_corr = "pearson")
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 fspace <- mFD::tr.cont.fspace(
   sp_tr        = sp_tr, 
   pca          = TRUE, 

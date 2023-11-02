@@ -54,7 +54,7 @@ head(asb_sp_fruits_summ$asb_sp_occ, 3)
 
 asb_sp_fruits_occ <- asb_sp_fruits_summ$"asb_sp_occ"
 
-## ---- results = "hide", eval = FALSE------------------------------------------
+## ----results = "hide", eval = FALSE-------------------------------------------
 #  mFD::sp.to.fe(
 #    sp_tr       = fruits_traits,
 #    tr_cat      = fruits_traits_cat,
@@ -86,7 +86,7 @@ fe_nb_sp
 ## -----------------------------------------------------------------------------
 sp_to_fe_fruits$"details_fe"
 
-## ---- results = "hide", eval = FALSE------------------------------------------
+## ----results = "hide", eval = FALSE-------------------------------------------
 #  mFD::alpha.fd.fe(
 #    asb_sp_occ       = asb_sp_fruits_occ,
 #    sp_to_fe         = sp_to_fe_fruits,
@@ -109,7 +109,7 @@ alpha_fd_fe_fruits$"asb_fdfe"
 # a matrix gathering the number of species per FE in each assemblage
 alpha_fd_fe_fruits$"details_fdfe"
 
-## ---- results = FALSE, eval = FALSE-------------------------------------------
+## ----results = FALSE, eval = FALSE--------------------------------------------
 #  mFD::alpha.fd.fe.plot(
 #    alpha_fd_fe       = alpha_fd_fe_fruits,
 #    plot_asb_nm       = c("basket_1"),
@@ -124,7 +124,7 @@ alpha_fd_fe_fruits$"details_fdfe"
 #    size_arrow_fvuln  = 1,
 #    check_input       = TRUE)
 
-## ---- fig.height = 7, fig.width = 12, fig.align = "center"--------------------
+## ----fig.height = 7, fig.width = 12, fig.align = "center"---------------------
 mFD::alpha.fd.fe.plot(
   alpha_fd_fe       = alpha_fd_fe_fruits,
   plot_asb_nm       = c("basket_1"),

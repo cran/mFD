@@ -16,7 +16,7 @@ data("fruits_traits_cat", package = "mFD")
 knitr::kable(head(fruits_traits_cat), 
              caption = "Traits types based on **fruits & baskets** dataset")
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 fruits_gower <- mFD::funct.dist(
   sp_tr         = fruits_traits,
   tr_cat        = fruits_traits_cat,

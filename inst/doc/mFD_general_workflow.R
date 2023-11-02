@@ -19,7 +19,7 @@ knitr::kable(as.data.frame(baskets_fruits_weights[1:6, 1:6]),
       caption = "Species x assemblages matrix based on the **fruits** dataset")
 
 
-## ---- echo = FALSE, out.width = "600px", fig.cap = "Basic framework of the mFD package", fig.align = 'center'----
+## ----echo = FALSE, out.width = "600px", fig.cap = "Basic framework of the mFD package", fig.align = 'center'----
 knitr::include_graphics("basic_framework.PNG")
 
 ## -----------------------------------------------------------------------------
@@ -68,10 +68,10 @@ asb_sp_fruits_summ$"asb_sp_richn"           # Species richness per assemblage
 ## -----------------------------------------------------------------------------
 asb_sp_fruits_summ$"asb_sp_nm"[[1]]             # Names of species present in the first assemblage
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 asb_sp_fruits_occ <- asb_sp_fruits_summ$"asb_sp_occ"
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 sp_dist_fruits <- mFD::funct.dist(
   sp_tr         = fruits_traits,
   tr_cat        = fruits_traits_cat,
@@ -84,7 +84,7 @@ sp_dist_fruits <- mFD::funct.dist(
 ## -----------------------------------------------------------------------------
 round(sp_dist_fruits, 3)                 # Output of the function mFD::funct.dist()
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 fspaces_quality_fruits <- mFD::quality.fspaces(
   sp_dist             = sp_dist_fruits,
   maxdim_pcoa         = 10,
@@ -95,7 +95,7 @@ fspaces_quality_fruits <- mFD::quality.fspaces(
 ## -----------------------------------------------------------------------------
 round(fspaces_quality_fruits$"quality_fspaces", 3)            # Quality metrics of spaces
 
-## ----  fig.show = 'hide', results = "hide"------------------------------------
+## ----fig.show = 'hide', results = "hide"--------------------------------------
 mFD::quality.fspaces.plot(
   fspaces_quality            = fspaces_quality_fruits,
   quality_metric             = "mad",
@@ -109,7 +109,7 @@ mFD::quality.fspaces.plot(
   gradient_deviation_quality = c(low = "yellow", high = "red"),
   x_lab                      = "Trait-based distance")
 
-## ---- fig.height = 7, fig.width = 12, fig.align = "center"--------------------
+## ----fig.height = 7, fig.width = 12, fig.align = "center"---------------------
 mFD::quality.fspaces.plot(
   fspaces_quality            = fspaces_quality_fruits,
   quality_metric             = "mad",
@@ -123,26 +123,26 @@ mFD::quality.fspaces.plot(
   gradient_deviation_quality = c(low = "yellow", high = "red"),
   x_lab                      = "Trait-based distance")
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 sp_faxes_coord_fruits <- fspaces_quality_fruits$"details_fspaces"$"sp_pc_coord"
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 fruits_tr_faxes <- mFD::traits.faxes.cor(
   sp_tr          = fruits_traits, 
   sp_faxes_coord = sp_faxes_coord_fruits[ , c("PC1", "PC2", "PC3", "PC4")], 
   plot           = TRUE)
 
-## ---- fig.height = 7, fig.width = 12, fig.align = "center"--------------------
+## ----fig.height = 7, fig.width = 12, fig.align = "center"---------------------
 # Print traits with significant effect:
 fruits_tr_faxes$"tr_faxes_stat"[which(fruits_tr_faxes$"tr_faxes_stat"$"p.value" < 0.05), ]
 
 # Return plots:
 fruits_tr_faxes$"tr_faxes_plot"
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 sp_faxes_coord_fruits <- fspaces_quality_fruits$"details_fspaces"$"sp_pc_coord"
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 big_plot <- mFD::funct.space.plot(
   sp_faxes_coord  = sp_faxes_coord_fruits[ , c("PC1", "PC2", "PC3", "PC4")],
   faxes           = c("PC1", "PC2", "PC3", "PC4"),
@@ -169,7 +169,7 @@ big_plot <- mFD::funct.space.plot(
   nm_fontface     = "plain",
   check_input     = TRUE)
 
-## ---- fig.height = 15, fig.width = 20, fig.align = "center"-------------------
+## ----fig.height = 15, fig.width = 20, fig.align = "center"--------------------
 big_plot <- mFD::funct.space.plot(
   sp_faxes_coord  = sp_faxes_coord_fruits,
   faxes           = NULL,
@@ -199,7 +199,7 @@ big_plot <- mFD::funct.space.plot(
 # Plot the graph with all pairs of axes:
 big_plot$patchwork
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 alpha_fd_indices_fruits <- mFD::alpha.fd.multidim(
   sp_faxes_coord   = sp_faxes_coord_fruits[ , c("PC1", "PC2", "PC3", "PC4")],
   asb_sp_w         = baskets_fruits_weights,
@@ -213,10 +213,10 @@ alpha_fd_indices_fruits <- mFD::alpha.fd.multidim(
 fd_ind_values_fruits <- alpha_fd_indices_fruits$"functional_diversity_indices"
 fd_ind_values_fruits
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 details_list_fruits <- alpha_fd_indices_fruits$"details"
 
-## ---- results = "hide",  fig.show = 'hide', message = FALSE-------------------
+## ----results = "hide",  fig.show = 'hide', message = FALSE--------------------
 plots_alpha <- mFD::alpha.multidim.plot(
   output_alpha_fd_multidim = alpha_fd_indices_fruits,
   plot_asb_nm              = c("basket_1", "basket_5"),
@@ -246,31 +246,31 @@ plots_alpha <- mFD::alpha.multidim.plot(
   save_file                = FALSE,
   check_input              = TRUE) 
 
-## ---- fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
+## ----fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
 plots_alpha$"fric"$"patchwork"
 
-## ---- fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
+## ----fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
 plots_alpha$"fdiv"$"patchwork"
 
-## ---- fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
+## ----fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
 plots_alpha$"fspe"$"patchwork"
 
-## ---- fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
+## ----fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
 plots_alpha$"fdis"$"patchwork"
 
-## ---- fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
+## ----fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
 plots_alpha$"fide"$"patchwork"
 
-## ---- fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
+## ----fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
 plots_alpha$"feve"$"patchwork"
 
-## ---- fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
+## ----fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
 plots_alpha$"fori"$"patchwork"
 
-## ---- fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
+## ----fig.height = 15, fig.width = 20, fig.align = "center", warning = FALSE----
 plots_alpha$"fnnd"$"patchwork"
 
-## ---- results = "hide", message=FALSE, eval = FALSE---------------------------
+## ----results = "hide", message=FALSE, eval = FALSE----------------------------
 #  beta_fd_indices_fruits <- mFD::beta.fd.multidim(
 #        sp_faxes_coord   = sp_faxes_coord_fruits[ , c("PC1", "PC2", "PC3", "PC4")],
 #        asb_sp_occ       = asb_sp_fruits_occ,
@@ -278,7 +278,7 @@ plots_alpha$"fnnd"$"patchwork"
 #        beta_family      = c("Jaccard"),
 #        details_returned = TRUE)
 
-## ---- results = "hide", warning = FALSE, eval = FALSE-------------------------
+## ----results = "hide", warning = FALSE, eval = FALSE--------------------------
 #  beta_plot_fruits <- mFD::beta.multidim.plot(
 #    output_beta_fd_multidim = beta_fd_indices_fruits,
 #    plot_asb_nm             = c("basket_1", "basket_4"),

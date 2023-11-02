@@ -26,7 +26,7 @@ fruits_traits_cat <- fruits_traits_cat[ , -3]
 knitr::kable(head(fruits_traits_cat), 
              caption = "Traits types based on **fruits & baskets** dataset")
 
-## ---- results = "hide"--------------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 sp_dist_fruits <- mFD::funct.dist(
   sp_tr         = fruits_traits,
   tr_cat        = fruits_traits_cat,
@@ -36,7 +36,7 @@ sp_dist_fruits <- mFD::funct.dist(
   weight_type   = "equal",
   stop_if_NA    = TRUE)
 
-## ---- results = "hide", message = FALSE---------------------------------------
+## ----results = "hide", message = FALSE----------------------------------------
 # Quality of functional spaces:
 fspaces_quality_fruits <- mFD::quality.fspaces(
   sp_dist             = sp_dist_fruits,
@@ -48,7 +48,7 @@ fspaces_quality_fruits <- mFD::quality.fspaces(
 # retrieve species (fruits) coordinates in the 4D space (see General tutorial):
 sp_faxes_coord_fruits <- fspaces_quality_fruits$"details_fspaces"$"sp_pc_coord"
 
-## ---- results = "hide", message = FALSE---------------------------------------
+## ----results = "hide", message = FALSE----------------------------------------
 alpha_fd_indices_fruits <- mFD::alpha.fd.multidim(
   sp_faxes_coord   = sp_faxes_coord_fruits[ , c("PC1", "PC2", "PC3", "PC4")],
   asb_sp_w         = baskets_fruits_weights,
@@ -67,7 +67,7 @@ range_faxes <- range_sp_coord +
     c(-1, 1) * (range_sp_coord[2] - range_sp_coord[1]) * 0.05
 range_faxes
 
-## ---- fig.height = 3, fig.width = 5, fig.align = "center"---------------------
+## ----fig.height = 3, fig.width = 5, fig.align = "center"----------------------
 # get species coordinates along the two studied axes:
 sp_faxes_coord_xy <- sp_faxes_coord_fruits[, c("PC1", "PC2")]
 
@@ -84,7 +84,7 @@ vert <- mFD::vertices(sp_faxes_coord = sp_faxes_coord_xy,
                       check_input = TRUE)
 
 
-## ---- fig.height = 3, fig.width = 5, fig.align = "center"---------------------
+## ----fig.height = 3, fig.width = 5, fig.align = "center"----------------------
 plot_sp_vert <- mFD::pool.plot(ggplot_bg = plot_k,
                              sp_coord2D = sp_faxes_coord_xy,
                              vertices_nD = vert,
@@ -102,7 +102,7 @@ plot_sp_vert <- mFD::pool.plot(ggplot_bg = plot_k,
                              fill_vert = "green")
 plot_sp_vert
 
-## ---- fig.height = 3, fig.width = 5, fig.align = "center"---------------------
+## ----fig.height = 3, fig.width = 5, fig.align = "center"----------------------
 plot_k <- mFD::pool.plot(ggplot_bg = plot_k,
                              sp_coord2D = sp_faxes_coord_xy,
                              vertices_nD = vert,
@@ -166,7 +166,7 @@ vert_nm_basket10 <- mFD::vertices(sp_faxes_coord = sp_faxes_coord_basket10,
                                        order_2D = TRUE, 
                                     check_input = TRUE)
 
-## ---- fig.height = 3, fig.width = 5, fig.align = "center"---------------------
+## ----fig.height = 3, fig.width = 5, fig.align = "center"----------------------
 plot_try <- mFD::fric.plot(ggplot_bg = plot_k,
                     asb_sp_coord2D = list("basket_1" = sp_faxes_coord_basket1,
                                           "basket_6" = sp_faxes_coord_basket6,
@@ -196,7 +196,7 @@ plot_try <- mFD::fric.plot(ggplot_bg = plot_k,
                              fill_vert = NA)
 plot_try
 
-## ---- fig.height = 3, fig.width = 5, fig.align = "center"---------------------
+## ----fig.height = 3, fig.width = 5, fig.align = "center"----------------------
 plot_try <- mFD::fric.plot(ggplot_bg = plot_k,
                     asb_sp_coord2D = list("basket_1" = sp_faxes_coord_basket1,
                                           "basket_6" = sp_faxes_coord_basket6,
@@ -228,7 +228,7 @@ plot_try <- mFD::fric.plot(ggplot_bg = plot_k,
                              fill_vert = NA)
 plot_try
 
-## ---- fig.height = 3, fig.width = 5, fig.align = "center"---------------------
+## ----fig.height = 3, fig.width = 5, fig.align = "center"----------------------
 plot_try <- mFD::fric.plot(ggplot_bg = plot_k,
                     asb_sp_coord2D = list("basket_1" = sp_faxes_coord_basket1,
                                           "basket_6" = sp_faxes_coord_basket6,
@@ -274,7 +274,7 @@ plot_try <- mFD::fric.plot(ggplot_bg = plot_k,
                                           "basket_10" = "#d0d1e6"))
 plot_try
 
-## ---- fig.height = 3, fig.width = 5, fig.align = "center"---------------------
+## ----fig.height = 3, fig.width = 5, fig.align = "center"----------------------
 plot_try <- mFD::fric.plot(ggplot_bg = plot_k,
                     asb_sp_coord2D = list("basket_1" = sp_faxes_coord_basket1,
                                           "basket_6" = sp_faxes_coord_basket6,
@@ -484,10 +484,10 @@ for (k in (1:plot_nb)) {
 
 
 
-## ---- fig.height = 3, fig.width = 5, fig.align = "center"---------------------
+## ----fig.height = 3, fig.width = 5, fig.align = "center"----------------------
 plot_FRic
 
-## ----  fig.height = 6, fig.width = 8, fig.align = "center"--------------------
+## ----fig.height = 6, fig.width = 8, fig.align = "center"----------------------
 patchwork_FRic <- (plot_FRic[[1]] + patchwork::plot_spacer() + patchwork::plot_spacer() +
                   plot_FRic[[2]] + plot_FRic[[4]] + patchwork::plot_spacer() +
                               plot_FRic[[3]] + plot_FRic[[5]] + plot_FRic[[6]]) +
